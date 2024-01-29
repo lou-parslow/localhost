@@ -4,4 +4,19 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new Fluent Blazor app.
+<p>city count: @cityCount</p>
+
+@code{
+
+	int cityCount = 0;
+	protected override async Task OnInitializedAsync()
+	{
+		var httpClient = new HttpClient();
+		HttpResponseMessage message = await httpClient.GetAsync("https://localhost/api/city/count");
+		if (message.IsSuccessStatusCode)
+		{
+			var result = await message.Content.ReadAsStringAsync();
+			cityCount = int.Parse(result);
+		}
+	}
+}
