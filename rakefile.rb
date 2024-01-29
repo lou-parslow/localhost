@@ -5,6 +5,8 @@ require "raykit"
 
 task :setup do
   run "dotnet new fluentblazorwasm -o src/#{NAME} -n #{NAME}" unless Dir.exist? "src/#{NAME}"
+  run "dotnet new sln -n #{NAME}" unless File.exist? "#{NAME}.sln"
+  run "dotnet sln #{NAME}.sln add src/#{NAME}/#{NAME}.csproj"
 end
 
 task :build do
